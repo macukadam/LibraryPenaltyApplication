@@ -1,0 +1,38 @@
+﻿@model BookReturnPenaltyApp.ViewModels.HolidayFormViewModel
+
+<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+
+<div class="container">
+    <br />
+    <h1>Veripark Library Book Penalty Calculation</h1>
+    <br />
+    @using (Html.BeginForm("Index","Home"))
+    {
+        <div class="form-group">
+            @Html.LabelFor(m => m.BookCheckInDate)
+            @Html.TextBoxFor(m => m.BookCheckInDate, String.Format("{0:dd/MM/yyyy}",Model.BookCheckInDate), new { @class = "form-control" })
+            @Html.ValidationMessageFor(m=>m.BookCheckInDate)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.BookCheckOut)
+            @Html.TextBoxFor(m => m.BookCheckOut, String.Format("{0:dd/MM/yyyy}", Model.BookCheckOut), new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.BookCheckOut)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.CountryId)
+            @Html.DropDownListFor(m => m.CountryId, new SelectList(Model.Country, "ContryId", "Country"), new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.CountryId)
+        </div>
+
+        <div class="form-group">
+            @Html.HiddenFor(m => m.Country, Model.Country.ToList())
+        </div>
+
+        <button type="submit" class="btn btn-primary">Calculate</button>
+    }   
+        @ViewBag.staticCurrency
+
+</div>
